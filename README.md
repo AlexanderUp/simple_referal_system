@@ -8,18 +8,46 @@
 
 - Clone repo
 
-```git clone```
+```git clone https://github.com/AlexanderUp/simple_referal_system.git```
 
 - Change directory
 
+```cd simple_referal_system```
+
 - Create virtual environment
+
+```python3 -m venv venv```
 
 - Activate virtual environment
 
-- Install dependencies
+```source venv/bin/activate```
 
-- Make migrations
+- Install dependencies (no development dependencies like flake8, etc.)
 
-- Migrate
+```python3 -m pip install -r requirements/base.txt```
 
-- Create super user
+- Install dependencies (with development dependencies like flake8, etc.)
+
+```python3 -m pip install -r requirements/dev.txt```
+
+- Install dependencies (with test dependencies like pytest, etc.)
+
+```python3 -m pip install -r requirements/test.txt```
+
+- Create .env file in referal_system (where .env.example is) and set django secret key
+
+- Apply migrations
+
+```python3 manage.py migrate```
+
+- Create superuser
+
+```python3 manage.py createsuperuser```
+
+- Run server
+
+```python3 manage.py runserver```
+
+- API description is available with Swagger at
+
+```http://127.0.0.1:8000/swagger/```
