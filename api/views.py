@@ -73,7 +73,14 @@ class InviteView(APIView):
         serializer = UserInviteSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user_invited_code = serializer.validated_data['invite_code']
-        user_invited_by = get_object_or_404(User, invite_code=user_invited_code)
+
+        if request.user.invited_by:
+            return Response(
+                {
+                    'Non-field errors': ['You already use invitation code earlier.'],
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         if request.user.invite_code == user_invited_code:
             return Response(
@@ -82,6 +89,8 @@ class InviteView(APIView):
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
+        user_invited_by = get_object_or_404(User, invite_code=user_invited_code)
 
         request.user.invited_by = user_invited_by
         request.user.save()
