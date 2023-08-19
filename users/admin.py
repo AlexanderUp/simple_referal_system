@@ -69,17 +69,15 @@ class UserAdmin(BaseUserAdmin):
             },
         ),
     )
-    readonly_fields = ('invite_code', 'invited_by')
 
 
 class AuthorizationAttemptAdmin(admin.ModelAdmin):
     list_display = (
         'pk',
         'phone_number',
-        'is_authorized',
-        'created',
+        'authorization_code',
     )
-    readonly_fields = ('authorization_code', 'is_authorized')
+    readonly_fields = ('authorization_code',)
 
 
 admin.site.register(User, UserAdmin)
