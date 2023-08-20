@@ -23,7 +23,7 @@ from users.models import AuthorizationAttempt, authorization_code_generator
 User = get_user_model()
 
 
-class AuthorizationAttempView(APIView):
+class AuthorizationAttemptView(APIView):
     permission_classes = (AllowAny,)
 
     @swagger_auto_schema(
