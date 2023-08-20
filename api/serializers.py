@@ -12,7 +12,11 @@ class AuthorizationCodeSerializer(serializers.Serializer):
 
 
 class PhoneNumberSerializer(serializers.Serializer):
-    phone_number = serializers.RegexField(phone_number_pattern)
+    phone_number = serializers.RegexField(
+        phone_number_pattern,
+        min_length=12,
+        max_length=12,
+    )
 
 
 class UserLoginSerializer(AuthorizationCodeSerializer):
@@ -55,3 +59,9 @@ class UserSerializer(BaseUserSerializer):
 
 class UserInviteSerializer(serializers.Serializer):
     invite_code = serializers.CharField(min_length=6, max_length=6)
+
+
+class ResponseDocumentationAuthTokenSerializer(serializers.Serializer):
+    """For Swagger only."""
+
+    token = serializers.CharField()

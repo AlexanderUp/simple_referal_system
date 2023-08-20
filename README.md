@@ -48,6 +48,28 @@
 
 ```python3 manage.py runserver```
 
-- API description is available with Swagger at
+- API description is available with Swagger or Redoc at
 
 ```http://127.0.0.1:8000/swagger/```
+
+```http://127.0.0.1:8000/redoc/```
+
+
+### System description
+
+- Send your phone number and get authorization code (2 seconds delay emulated) with
+
+```POST http://127.0.0.1:8000/api/v1/authorize/```
+
+- Send give authorization code and get token to
+
+```POST http://127.0.0.1:8000/api/v1/login/```
+
+- Your profile is available at (given token for authorization required)
+(authentication header AUTHORIZATION is 'Token token_string')
+
+```GET http://127.0.0.1:8000/api/v1/users/me/```
+
+- You can use invitation code (only once and not your own) at
+
+```POST http://127.0.0.1:8000/api/v1/users/invite/```
