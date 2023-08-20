@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import transaction
 from django.shortcuts import get_object_or_404
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
@@ -10,6 +12,7 @@ from rest_framework.views import APIView
 from api.serializers import (
     AuthorizationCodeSerializer,
     PhoneNumberSerializer,
+    ResponseDocumentationAuthTokenSerializer,
     UserInviteSerializer,
     UserLoginSerializer,
     UserSerializer,
@@ -23,6 +26,19 @@ User = get_user_model()
 class AuthorizationAttempView(APIView):
     permission_classes = (AllowAny,)
 
+    @swagger_auto_schema(
+        request_body=PhoneNumberSerializer,
+        responses={
+            201: openapi.Response(
+                'Phone number accepted',
+                AuthorizationCodeSerializer,
+            ),
+            400: openapi.Response(
+                'Bad request',
+                PhoneNumberSerializer,
+            ),
+        },
+    )
     @delay(2)
     def post(self, request, *args, **kwargs):
         phone_number_serializer = PhoneNumberSerializer(data=request.data)
@@ -41,9 +57,16 @@ class AuthorizationAttempView(APIView):
 class LoginView(APIView):
     permission_classes = (AllowAny,)
 
-    def get(self, request, *args, **kwargs):
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
+    @swagger_auto_schema(
+        request_body=UserLoginSerializer,
+        responses={
+            201: openapi.Response(
+                'Created',
+                ResponseDocumentationAuthTokenSerializer,
+            ),
+            400: UserLoginSerializer,
+        },
+    )
     def post(self, request, *args, **kwargs):
         serializer = UserLoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -63,12 +86,29 @@ class LoginView(APIView):
 
 
 class UserView(APIView):
+    @swagger_auto_schema(
+        responses={
+            200: openapi.Response('OK.', UserSerializer),
+            401: 'Unauthorized.',
+        },
+    )
     def get(self, request, *args, **kwargs):
         serializer = UserSerializer(request.user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class InviteView(APIView):
+    @swagger_auto_schema(
+        request_body=UserInviteSerializer,
+        responses={
+            201: openapi.Response(
+                'Created',
+                UserSerializer,
+            ),
+            400: 'Bad request',
+            401: 'Unauthorized.',
+        },
+    )
     def post(self, request, *args, **kwargs):
         serializer = UserInviteSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)

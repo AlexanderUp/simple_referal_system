@@ -48,6 +48,8 @@
 
 ```python3 manage.py runserver```
 
-- API description is available with Swagger at
+- API description is available with Swagger or Redoc at
 
 ```http://127.0.0.1:8000/swagger/```
+
+```http://127.0.0.1:8000/redoc/```
