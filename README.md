@@ -73,3 +73,8 @@
 - You can use invitation code (only once and not your own) at
 
 ```POST http://127.0.0.1:8000/api/v1/users/invite/```
+
+### Hosting
+
+Project deployed and available at
+```https://alexanderup.pythonanywhere.com/```
