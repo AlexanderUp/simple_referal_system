@@ -82,4 +82,4 @@ Project deployed and available at
 
 ### Author comments
 
-Used DB is sqlite3 because pythonanywhere don't allow to serve Postgres DB instance for free accounts.
+Used DB is sqlite3 because pythonanywhere doesn't allow to serve Postgres DB instance for free accounts.
