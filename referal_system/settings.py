@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'secret_password_you_never_guess')
 
-DEBUG = os.getenv('DEBUG', True)
+DEBUG = os.getenv('DJANGO_DEBUG', True)
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default='*').split()
 
@@ -97,11 +97,13 @@ USE_I18N = True
 
 USE_TZ = True
 
+STATIC_ROOT = BASE_DIR / 'static'
+
 STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGGING_ENABLED = os.getenv('LOGGING_ENABLED', True)
+LOGGING_ENABLED = os.getenv('DJANGO_LOGGING_ENABLED', True)
 
 if LOGGING_ENABLED:
     LOGGING = {
