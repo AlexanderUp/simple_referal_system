@@ -53,3 +53,23 @@
 ```http://127.0.0.1:8000/swagger/```
 
 ```http://127.0.0.1:8000/redoc/```
+
+
+### System description
+
+- POST your phone number and get authorization code (2 seconds delay emulated) with
+
+```http://127.0.0.1:8000/api/v1/authorize/```
+
+- POST give authorization code and get token to
+
+```http://127.0.0.1:8000/api/v1/login/```
+
+- Your profile is available at (given token for authorization required)
+(authentication header AUTHORIZATION is 'Token token_string')
+
+```http://127.0.0.1:8000/api/v1/users/me/```
+
+- You can use invitation code (only once and not your own) at
+
+```http://127.0.0.1:8000/api/v1/users/invite/```
