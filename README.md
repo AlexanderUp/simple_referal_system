@@ -78,3 +78,8 @@
 
 Project deployed and available at
 ```https://alexanderup.pythonanywhere.com/```
+
+
+### Author comments
+
+Used DB is sqlite3 because pythonanywhere don't allow to serve Postgres DB instance for free accounts.
